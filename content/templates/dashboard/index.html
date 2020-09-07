@@ -1,0 +1,176 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}{% trans 'Dashboard' %}{% endblock %}
+{% block customcss %}
+    <link href="{% static 'dashboard/css/pages/dashboard3.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <!-- Column -->
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 m-b-30 text-center"><small>{% trans 'Income' %}</small>
+                                <h2><i class="ti-arrow-up text-success"></i> {{ sum_income }} zł.</h2>
+                                <div id="sparklinedash"></div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 m-b-30 text-center"><small>{% trans 'Bottom Line' %}</small>
+                                <h2>
+                                    {% if total_earning > 5000 %}
+                                        <i class="ti-angle-up text-success"></i> {{ total_earning }} zł.
+                                    {% else %}
+                                        <i class="ti-angle-down text-danger"></i> {{ total_earning }} zł.
+                                    {% endif %}
+                                </h2>
+                                <div id="sparklinedash3"></div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 m-b-30 text-center"><small{% trans 'Expenses' %}></small>
+                                <h2><i class="ti-arrow-down text-danger"></i> {{ sum_expenses }} zł.</h2>
+                                <div id="sparklinedash4"></div>
+                            </div>
+                        </div>
+                        <ul class="list-inline font-12 text-center">
+                            {{ business_status }}
+                            {% if business_status == "Your business doesn't go well" %}
+                            - <a href="">{% trans 'Get help' %}</a>
+                            {% endif %}
+                        </ul>
+                        <canvas id="incomeExpensesChart" height="150"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    <!-- column -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{% trans 'CLIENTS' %}</h5>
+                                <div class="d-flex m-t-30 m-b-20 no-block align-items-center">
+                                    <span class="display-5 text-info"><i class="icon-people"></i></span>
+                                    <a href="{% url 'dashboard:clients' %}"
+                                       class="link display-5 ml-auto">{{ clients_amount }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- column -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title w-75">{% trans 'UNPAID' %}</h5>
+                                <div class="d-flex m-t-30 m-b-20 no-block align-items-center">
+                                    <span class="display-5 text-danger"><i class="ti-receipt"></i></span>
+                                    <a href="javscript:void(0)" class="link display-5 ml-auto">169</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- column -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{% trans 'COMING' %}</h5>
+                                <div class="d-flex m-t-30 m-b-20 no-block align-items-center">
+                                    <span class="display-5 text-primary"><i class="icon-folder-alt"></i></span>
+                                    <a href="javscript:void(0)" class="link display-5 ml-auto">311</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- column -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{% trans 'PAID' %}</h5>
+                                <div class="d-flex m-t-30 m-b-20 no-block align-items-center">
+                                    <span class="display-5 text-success"><i class="icon-wallet"></i></span>
+                                    <a href="javscript:void(0)" class="link display-5 ml-auto">117</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- column -->
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="news-slide m-b-15">
+                    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                        <!-- Carousel items -->
+                        <div class="carousel-inner">
+                            <div class="active carousel-item">
+                                <div class="overlaybg"><img src="{% static 'dashboard/images/news/dashboard_bg.jpg' %}"
+                                                            class="img-fluid"/></div>
+                                <div class="news-content carousel-caption"><span
+                                        class="label label-danger label-rounded">Penge PLUS+</span>
+                                    <h4>It has survived not only five centuries, but also the leap into electronic
+                                        typesetting, remaining essentially unchanged.</h4> <a href="javascript:void(0)">Read
+                                        More</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block customjs %}
+    <script src="{% static 'dashboard/node_modules/raphael/raphael-min.js' %}"></script>
+    <script src="{% static 'dashboard/node_modules/Chart.js/Chart.min.js' %}"></script>
+    <script src="{% static 'dashboard/node_modules/jquery-sparkline/jquery.sparkline.min.js' %}"></script>
+    <script type="application/json" src="{% static 'dashboard/js/dashboard3.js' %}"></script>
+    <script>
+        $(function () {
+            let endpoint = '/dashboard/api/sales-expenses'
+            let salesData = []
+            let labels = []
+            let expenses = []
+            $.ajax({
+                method: "GET",
+                url: endpoint,
+                success: function (data) {
+                    labels = data.labels
+                    salesData = data.sales
+                    expenses = data.total_expenses
+                    console.log(expenses)
+                    console.log(salesData)
+
+                    new Chart(document.getElementById("incomeExpensesChart"),
+                        {
+                            "type": "bar",
+                            "data": {
+                                "labels": labels,
+                                "datasets": [{
+                                    "label": "Sales",
+                                    "data": salesData,
+                                    "fill": false,
+                                    "backgroundColor": "rgba(0, 194, 146, 0.2)",
+                                    "borderColor": "rgb(0, 194, 146)",
+                                    "borderWidth": 1
+                                }, {
+                                    "label": "Expenses",
+                                    "data": expenses,
+                                    "fill": false,
+                                    "backgroundColor": "rgba(228, 106, 118, 0.2)",
+                                    "borderColor": "rgb(228, 106, 118)",
+                                    "borderWidth": 1
+                                }]
+                            },
+                            "options": {
+                                "scales": {"yAxes": [{"ticks": {"beginAtZero": true}}]}
+                            }
+                        });
+                },
+                error: function (error_data) {
+                    console.log("Error")
+                    console.log(error_data)
+                },
+            })
+        });
+    </script>
+{% endblock %}

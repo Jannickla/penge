@@ -1,0 +1,181 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% block title %}{% trans 'Edit' %} {{ client.co_name }}{% endblock %}
+{% block customcss %}{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">{% trans 'Edit' %}</h4>
+                        <h6 class="card-subtitle">{% trans 'Edit' %} <code>vtabs &amp; tabs-vertical</code></h6>
+                        <!-- Nav tabs -->
+                        <div class="vtabs">
+                            <ul class="nav nav-tabs tabs-vertical" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#company" role="tab">
+                                        <span class="hidden-sm-up"><i class="ti-user"></i></span> <span
+                                            class="hidden-xs-down">{% trans 'Client' %}</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#invoice" role="tab">
+                                        <span class="hidden-sm-up"><i class="ti-receipt"></i></span> <span
+                                            class="hidden-xs-down">{% trans 'Invoice' %}</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#advanced" role="tab">
+                                        <span class="hidden-sm-up"><i class="ti-settings"></i></span> <span
+                                            class="hidden-xs-down">{% trans 'Advanced' %}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <form enctype="multipart/form-data" class="floating-labels m-t-40" method="POST"
+                                  action="{% url 'dashboard:edit-client' client.pk %}">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-3 pl-5 text-center mt-3">
+                                        <div href="#" class="d-inline">
+                                            <img class="clientProfileImage" src="{{ form.instance.co_logo.url }}"
+                                                 style="margin: 0 auto; display: block;" alt=""/>
+                                            {% render_field form.co_logo name="co_logo" class="d-none cEvent" type="file" %}
+                                            <button type="button" class="btn btn-secondary mt-3 cTarget">{% trans 'Change Logo' %}
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9 pr-5 pl-5">
+                                        <div class="tab-content mt-3">
+                                            <div class="tab-pane active" id="company" role="tabpanel">
+                                                <div class="row">
+                                                    <div class="col-md-12 pr-5 pl-5">
+                                                        <h3>{% trans 'Client Information' %}</h3>
+                                                        <h6 class="mb-5">{% trans 'Edit the general information about' %} <strong>{{ client.co_name }}</strong></h6>
+                                                        <div class="form-group">
+                                                            <label for="co_name">{% trans 'Company Name' %}</label>
+                                                            {{ form.co_name }}
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="co_nip_number">{% trans 'NIP Number' %}</label>
+                                                            {{ form.co_nip_number }}
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="co_address">{% trans 'Address' %}</label>
+                                                            {{ form.co_address }}
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="co_zip">{% trans 'ZIP Code' %}</label>
+                                                            {{ form.co_zip }}
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="co_city">{% trans 'City' %}</label>
+                                                            {{ form.co_city }}
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="co_country">{% trans 'Country' %}</label>
+                                                            {{ form.co_country }}
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="co_telephone">{% trans 'Telephone' %}</label>
+                                                            {{ form.co_telephone }}
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="co_email">{% trans 'E-mail' %}</label>
+                                                            {{ form.co_email }}
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="co_website">{% trans 'Website' %}</label>
+                                                            {{ form.co_website }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="invoice" role="tabpanel">
+                                                <div class="row">
+                                                    <div class="col-md-12 pr-5 pl-5">
+                                                        <h3>{% trans 'Invoice Default Settings' %}</h3>
+                                                        <h6 class="mb-5">{% trans 'These settings will apply to every invoice you issue to' %} <strong>{{ client.co_name }}</strong>.</h6>
+                                                        <div class="form-group">
+                                                            <label for="co_name">{% trans 'ATT. Person' %}</label>
+                                                            {{ form.co_att_person }}
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="co_nip_number">{% trans 'Payment Method' %}</label>
+                                                            {{ form.co_payment_method }}
+                                                        </div>
+                                                        <h4>{% trans 'Invoice Email' %}</h4>
+                                                        <div class="form-group">
+                                                            <label for="co_nip_number">{% trans 'Invoice Receiver' %}</label>
+                                                            {{ form.in_sendto_mail }}
+                                                            <small id="emailHelp" class="form-text text-muted">{% trans 'Add just one E-mail in this field. Do you need further, please see "CC and "BCC" below' %}</small>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="co_nip_number">{% trans 'E-mail Receiver' %}</label>
+                                                            {{ form.in_sendto_mail }}
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="co_nip_number">{% trans 'E-mail Subject' %}</label>
+                                                            {{ form.in_sendto_subject }}
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="co_nip_number">{% trans 'E-mail Content' %}</label>
+                                                            {{ form.in_sendto_content }}
+                                                            <small class="form-text text-muted">{% trans 'HTML is allowed' %}</small>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="co_nip_number">{% trans 'CC E-mails' %}</label>
+                                                            {{ form.in_cc_mails }}
+                                                            <small class="form-text text-muted">{% trans 'Add more e-mails separated by commas - These mails <strong>will</strong> be visible to all receivers.' %}</small>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="co_nip_number">{% trans 'BCC E-mails' %}</label>
+                                                            {{ form.in_bcc_mails }}
+                                                            <small class="form-text text-muted">{% trans "Add more e-mails separated by commas - These mails <strong>won't</strong> be visible to all receivers.</small>" %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane p-20" id="advanced" role="tabpanel">3</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-5">
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-primary w-25 float-right">
+                                            {% trans 'Save Changes' %}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block customjs %}
+    <script>
+        // Add max-height or max-width depending on image being vertical or horizontal
+        $('img.clientProfileImage').each(function () {
+            if ($(this).width() > $(this).height()) {
+                $("img.clientProfileImage").css("max-width", "130px");
+            } else {
+                $("img.clientProfileImage").css("max-height", "130px");
+            }
+        });
+
+        // Triggers the upload button for company logo
+        $(".cTarget").click(function () {
+            $(".cEvent").click();
+            return false;
+        });
+
+        // Add BS class to CountryList
+        $("select").addClass("form-control");
+    </script>
+{% endblock %}

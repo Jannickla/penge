@@ -1,0 +1,464 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% block title %}Settle ZUS Guide{% endblock %}
+{% block customcss %}
+    <style>
+        #navbar-example3 {
+            max-height: 90vh;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body p-b-0">
+                        <h4 class="card-title">ZUS Application</h4>
+                        <h6 class="card-subtitle">Download, print and fill out your ZUS application with our extended
+                            guide below.</h6>
+                    </div>
+
+                    <ul class="nav nav-tabs customtab " role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#zus-dra" role="tab">
+                                <span class="hidden-sm-up">
+                                    <i class="ti-shift-right-alt"></i>
+                                </span>
+                                <span class="hidden-xs-down">ZUS DRA</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#zus-rca" role="tab">
+                                <span class="hidden-sm-up">
+                                    <i class="ti-shift-right-alt"></i>
+                                </span>
+                                <span class="hidden-xs-down">ZUS RCA</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#zus-rza" role="tab">
+                                <span class="hidden-sm-up">
+                                    <i class="ti-shift-right-alt"></i>
+                                </span>
+                                <span class="hidden-xs-down">ZUS RZA</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#zus-rsa" role="tab">
+                                <span class="hidden-sm-up">
+                                    <i class="ti-shift-right-alt"></i>
+                                </span>
+                                <span class="hidden-xs-down">ZUS RSA</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#zus-rpa" role="tab">
+                                <span class="hidden-sm-up">
+                                    <i class="ti-shift-right-alt"></i>
+                                </span>
+                                <span class="hidden-xs-down">ZUS RPA</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="zus-dra" role="tabpanel">
+                            <div class="p-20">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <nav id="navbar-example3" class="navbar navbar-light flex-column overflow-auto">
+                                            <nav class="nav nav-pills flex-column">
+                                                <a class="nav-link active" href="#item-1">I. DANE ORGANIZACYJNE</a>
+                                                <nav class="nav nav-pills flex-column">
+                                                    <a class="nav-link ml-3 my-1" href="#item-1-1">Polu 01</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-1-2">Polu 02</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-1-3">Polu 03</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-1-4">Polu 04</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-1-5">Polu 05</a>
+                                                </nav>
+                                                <a class="nav-link" href="#item-2">II. DANE IDENTYFIKACYJNE PŁATNIKA
+                                                    SKŁADEK</a>
+                                                <nav class="nav nav-pills flex-column">
+                                                    <a class="nav-link ml-3 my-1" href="#item-2-1">Polu 01</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-2-2">Polu 02</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-2-3">Polu 03</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-2-4">Polu 04</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-2-5">Polu 05</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-2-6">Polu 06</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-2-7">Polu 07</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-2-8">Polu 08</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-2-9">Polu 09</a>
+                                                </nav>
+                                                <a class="nav-link" href="#item-3">III. INNE INFORMACJE</a>
+                                                <nav class="nav nav-pills flex-column">
+                                                    <a class="nav-link ml-3 my-1" href="#item-3-1">Polu 01</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-3-2">Polu 02</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-3-3">Polu 03</a>
+                                                </nav>
+                                                <a class="nav-link" href="#item-4">IV. ZESTAWIENIE NALEŻNYCH SKŁADEK NA
+                                                    UBEZPIECZENIA SPOŁECZNE ORAZ ŹRÓDEŁ FINAN OWANIA</a>
+                                                <nav class="nav nav-pills flex-column">
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-1">Polu 01</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-2">Polu 02</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-3">Polu 03</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-4">Polu 04</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-5">Polu 05</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-6">Polu 06</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-7">Polu 07</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-8">Polu 08</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-9">Polu 09</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-10">Polu 10</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-11">Polu 11</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-12">Polu 12</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-13">Polu 13</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-14">Polu 14</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-15">Polu 15</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-16">Polu 16</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-17">Polu 17</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-18">Polu 18</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-19">Polu 19</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-20">Polu 20</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-21">Polu 21</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-22">Polu 22</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-23">Polu 23</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-24">Polu 24</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-15">Polu 25</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-26">Polu 26</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-27">Polu 27</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-28">Polu 28</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-29">Polu 29</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-30">Polu 30</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-31">Polu 31</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-32">Polu 32</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-33">Polu 33</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-34">Polu 34</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-35">Polu 35</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-36">Polu 36</a>
+                                                    <a class="nav-link ml-3 my-1" href="#item-4-37">Polu 37</a>
+                                                </nav>
+                                            </nav>
+                                        </nav>
+                                    </div>
+                                    <div class="col-8 overflow">
+                                        <div data-spy="scroll" data-target="#navbar-example3" data-offset="0"
+                                             class="position-relative mt-4" style="height: 80vh;overflow: auto;">
+                                            <h4 id="item-1" class="font-bold">I. DANE ORGANIZACYJNE</h4>
+
+                                            <h6 id="item-1-1" class="font-bold">W polu 01</h6>
+                                            <p>Wpisz 2 – dla deklaracji składanych do 10 dnia następnego miesiąca za
+                                                poprzedni miesiąc.</p>
+
+                                            <h6 id="item-1-2" class="font-bold">W polu 02</h6>
+                                            <p>Wpisz identyfikator deklaracji za miesiąc rozliczeniowy, za który
+                                                rozliczasz należne składki. W tym polu wpisujesz takie dane jak: numer/
+                                                miesiąc/ rok, np. 01 04 2018.</p>
+
+                                            <h6 id="item-1-3" class="font-bold">W polu 03</h6>
+                                            <p>Nie wypełniaj.</p>
+
+                                            <h6 id="item-1-4" class="font-bold">W polu 04</h6>
+                                            <p>Nie wypełniaj.</p>
+
+                                            <h6 id="item-1-5" class="font-bold">W polu 05</h6>
+                                            <p>Wpisz znak i numer decyzji pokontrolnej. W omawianym przypadku nie
+                                                wypełniamy.</p>
+
+                                            <h4 id="item-2" class="font-bold pt-4">II. DANE IDENTYFIKACYJNE PŁATNIKA
+                                                SKŁADEK</h4>
+
+                                            <h6 id="item-2-1" class="font-bold">W polu 01</h6>
+                                            <p>Wpisz numer NIP (numer identyfikacji podatkowej) nadany Ci jako
+                                                płatnikowi przez urząd skarbowy, nie oddzielając kreskami poszczególnych
+                                                członów.</p>
+
+                                            <h6 id="item-2-2" class="font-bold">W polu 02</h6>
+                                            <p>Wpisz numer REGON nadany Ci jako płatnikowi przez Główny Urząd
+                                                Statystyczny i ewidencjonowany w krajowym rejestrze urzędowym podmiotów
+                                                gospodarki narodowej (numer ten może mieć 9 lub 14 znaków i należy go
+                                                wpisać wraz z występującymi „0”).</p>
+
+                                            <h6 id="item-2-3" class="font-bold">W polu 03</h6>
+                                            <p>Wypełniasz, jeśli jesteś płatnikiem – osobą fizyczną:<br>Wpisz numer
+                                                PESEL (numer ewidencyjny nadany przez Rządowe Centrum Informatyczne
+                                                Powszechnego Elektronicznego Systemu Ewidencji Ludności);</p>
+
+                                            <h6 id="item-2-4" class="font-bold">W polu 04</h6>
+                                            <p>Wypełniasz, jeśli jesteś płatnikiem – osobą fizyczną:<br>Wypełniasz
+                                                wyłącznie, jeśli nie nadano Ci numerów NIP, REGON lub PESEL albo jednego
+                                                z nich:<br>W zależności od rodzaju dokumentu wpisz:<br>1 – W przypadku
+                                                dowodu osobistego.<br>2 – W przypadku paszportu lub innego dokumentu
+                                                potwierdzającego tożsamość obywatela Unii Europejskiej.</p>
+
+                                            <h6 id="item-2-5" class="font-bold">W polu 05</h6>
+                                            <p>Wypełniasz, jeśli jesteś płatnikiem – osobą fizyczną:<br>Wypełniasz
+                                                wyłącznie, jeśli nie nadano Ci numerów NIP, REGON lub PESEL albo jednego
+                                                z nich:<br>Wpisz serię i numer – odpowiednio do kodu wpisanego w pole 04
+                                                – dowodu osobistego lub paszportu lub innego dokumentu potwierdzającego
+                                                tożsamość obywatela Unii Europejskiej.</p>
+
+                                            <h6 id="item-2-6" class="font-bold">W polu 06</h6>
+                                            <p>Wpisz nazwę skróconą płatnika, którą podałeś w zgłoszeniu płatnika
+                                                składek lub we wniosku CEIDG-1 bądź w formularzu NIP-8 złożonym w
+                                                urzędzie skarbowym.</p>
+
+                                            <h6 id="item-2-7" class="font-bold">W polu 07</h6>
+                                            <p>Wypełniasz, jeśli jesteś płatnikiem składek będącym osobą fizyczną:<br>Wpisz
+                                                nazwisko płatnika składek (poszczególne człony nazwiska oddziel kreską).
+                                            </p>
+
+                                            <h6 id="item-2-8" class="font-bold">W polu 08</h6>
+                                            <p>Wypełniasz, jeśli jesteś płatnikiem składek będącym osobą fizyczną:<br>Wpisz
+                                                pierwsze imię płatnika składek.</p>
+
+                                            <h6 id="item-2-9" class="font-bold">W polu 09</h6>
+                                            <p>Wypełniasz, jeśli jesteś płatnikiem składek będącym osobą fizyczną:<br>Wpisz
+                                                datę urodzenia płatnika składek (dzień/ miesiąc/ rok).</p>
+
+                                            <h4 id="item-3" class="font-bold pt-4">III. INNE INFORMACJE</h4>
+
+                                            <h6 id="item-3-1" class="font-bold">W polu 01</h6>
+                                            <p>Wpisz liczbę ubezpieczonych, za których rozliczasz składki na
+                                                ubezpieczenia społeczne i/ lub zdrowotne. W naszym przypadku 1.</p>
+
+                                            <h6 id="item-3-2" class="font-bold">W polu 02</h6>
+                                            <p>Nie wypełnia się, począwszy od dokumentów za styczeń 2008 r. W przypadku
+                                                dokumentów rozliczeniowych za okres do 31 grudnia 2007 r. w deklaracji
+                                                rozliczeniowej w tym polu należy wpisać odpowiedni kod, czyli 0, 1, 2
+                                                lub 3. </p>
+
+                                            <h6 id="item-3-3" class="font-bold">W polu 03</h6>
+                                            <p>Wpisz stopę procentową składki na ubezpieczenie wypadkowe. W naszym
+                                                przypadku będzie to 1,67%.</p>
+
+                                            <h4 id="item-4" class="font-bold pt-4">IV. ZESTAWIENIE NALEŻNYCH SKŁADEK NA
+                                                UBEZPIECZENIA SPOŁECZNE ORAZ ŹRÓDEŁ FINAN OWANIA</h4>
+
+                                            <h6 id="item-4-1" class="font-bold">W polu 01</h6>
+                                            <p>Wpisz kwotę składek na ubezpieczenie emerytalne – Sumę wartości pól 04,
+                                                07, 10, 13, 16, czyli 520,36 zł.</p>
+
+                                            <h6 id="item-4-2" class="font-bold">W polu 02</h6>
+                                            <p>Wpisz kwotę składek na ubezpieczenia rentowe – Sumę wartości pól 05, 08,
+                                                11, 14, 17, czyli 213,26 zł.</p>
+
+                                            <h6 id="item-4-3" class="font-bold">W polu 03</h6>
+                                            <p>Wpisz kwotę składek na ubezpieczenia emerytalne i rentowe – Sumę wartości
+                                                pól 01 i 02, czyli 733,62 zł (520,36 zł + 213,26 zł = 733,62 zł).</p>
+
+                                            <h6 id="item-4-4" class="font-bold">W polu 04</h6>
+                                            <p>Wpisz kwotę składki na ubezpieczenie emerytalne finansowanej przez
+                                                ubezpieczonego, czyli 520,36 zł. Minimalna podstawa – 60% prognozowanego
+                                                przeciętnego wynagrodzenia miesięcznego na 2018 r. pomnożona przez stopę
+                                                procentową na ubezpieczenie emerytalne (2665,80 zł 2 19,52% = 520,36
+                                                zł).</p>
+
+                                            <h6 id="item-4-5" class="font-bold">W polu 05</h6>
+                                            <p>Wpisz kwotę składki na ubezpieczenia rentowe finansowanej przez
+                                                ubezpieczonego, czyli 213,26 zł. Minimalna podstawa – 60% prognozowanego
+                                                przeciętnego wynagrodzenia miesięcznego na 2018 r. pomnożona przez stopę
+                                                procentową na ubezpieczenie rentowe (2665,80 zł 2 8% = 213,26 zł).</p>
+
+                                            <h6 id="item-4-6" class="font-bold">W polu 06</h6>
+                                            <p>Wpisz kwotę składek na ubezpieczenia emerytalne i rentowe – Sumę wartości
+                                                pól 04 i 05, czyli 733,62 zł (520,36 zł + 213,26 zł = 733,62 zł).</p>
+
+                                            <h6 id="item-4-7" class="font-bold">W polu 07</h6>
+                                            <p>Wpisz kwotę składki na ubezpieczenie emerytalne finansowanej przez
+                                                płatnika składek. W naszym przykładzie nie wypełniamy, składka
+                                                finansowana tylko przez ubezpieczonego.</p>
+
+                                            <h6 id="item-4-8" class="font-bold">W polu 08</h6>
+                                            <p>Wpisz kwotę składki na ubezpieczenia rentowe finansowanej przez płatnika
+                                                składek. W naszym przykładzie nie wypełniamy, składka finansowana tylko
+                                                przez ubezpieczonego. </p>
+
+                                            <h6 id="item-4-9" class="font-bold">W polu 09</h6>
+                                            <p>Wpisz kwotę składek na ubezpieczenia emerytalne i rentowe – Sumę wartości
+                                                pól 07 i 08. W naszym przykładzie nie wypełniamy.</p>
+
+                                            <h6 id="item-4-10" class="font-bold">W polu 10</h6>
+                                            <p>Wpisz kwotę składki na ubezpieczenie emerytalne finansowanej przez budżet
+                                                państwa. W naszym przykładzie nie wypełniamy</p>
+
+                                            <h6 id="item-4-11" class="font-bold">W polu 11</h6>
+                                            <p>Wpisz kwotę składki na ubezpieczenia rentowe finansowanej przez budżet
+                                                państwa. W naszym przykładzie nie wypełniamy.</p>
+
+                                            <h6 id="item-4-12" class="font-bold">W polu 12</h6>
+                                            <p>Wpisz kwotę składek na ubezpieczenia emerytalne i rentowe – Sumę wartości
+                                                pól 10 i 11. W naszym przykładzie nie wypełniamy.</p>
+
+                                            <h6 id="item-4-13" class="font-bold">W polu 13</h6>
+                                            <p>Nie wypełnia się, począwszy od dokumentów za styczeń 2008 r. W razie
+                                                składania korekt za okres do grudnia 2007 r. można w tych polach wykazać
+                                                kwotę nie wyższą od kwoty dofinansowania uwzględnionego w deklaracji za
+                                                ten okres złożonej nie później niż 30 czerwca 2008 r.</p>
+
+                                            <h6 id="item-4-14" class="font-bold">W polu 14</h6>
+                                            <p>Nie wypełnia się, począwszy od dokumentów za styczeń 2008 r. W razie
+                                                składania korekt za okres do grudnia 2007 r. można w tych polach wykazać
+                                                kwotę nie wyższą od kwoty dofinansowania uwzględnionego w deklaracji za
+                                                ten okres złożonej nie później niż 30 czerwca 2008 r.</p>
+
+                                            <h6 id="item-4-15" class="font-bold">W polu 15</h6>
+                                            <p>Nie wypełnia się, począwszy od dokumentów za styczeń 2008 r. W razie
+                                                składania korekt za okres do grudnia 2007 r. można w tych polach wykazać
+                                                kwotę nie wyższą od kwoty dofinansowania uwzględnionego w deklaracji za
+                                                ten okres złożonej nie później niż 30 czerwca 2008 r.</p>
+
+                                            <h6 id="item-4-16" class="font-bold">W polu 16</h6>
+                                            <p>Wpisz kwotę składki na ubezpieczenie emerytalne finansowanej przez
+                                                Fundusz Kościelny. W naszym przykładzie nie wypełniamy.</p>
+
+                                            <h6 id="item-4-17" class="font-bold">W polu 17</h6>
+                                            <p>Wpisz stopę procentową składki na ubezpieczenie wypadkowe. W naszym
+                                                przypadku będzie to 1,67%.</p>
+
+                                            <h6 id="item-4-18" class="font-bold">W polu 18</h6>
+                                            <p>Wpisz stopę procentową składki na ubezpieczenie wypadkowe. W naszym
+                                                przypadku będzie to 1,67%.</p>
+
+                                            <h6 id="item-4-19" class="font-bold">W polu 19</h6>
+                                            <p>Wpisz stopę procentową składki na ubezpieczenie wypadkowe. W naszym
+                                                przypadku będzie to 1,67%.</p>
+
+                                            <h6 id="item-4-20" class="font-bold">W polu 20</h6>
+                                            <p>Wpisz stopę procentową składki na ubezpieczenie wypadkowe. W naszym
+                                                przypadku będzie to 1,67%.</p>
+
+                                            <h6 id="item-4-21" class="font-bold">W polu 21</h6>
+                                            <p>Wpisz stopę procentową składki na ubezpieczenie wypadkowe. W naszym
+                                                przypadku będzie to 1,67%.</p>
+
+                                            <h6 id="item-4-22" class="font-bold">W polu 22</h6>
+                                            <p>Wpisz stopę procentową składki na ubezpieczenie wypadkowe. W naszym
+                                                przypadku będzie to 1,67%.</p>
+
+                                            <h6 id="item-4-23" class="font-bold">W polu 23</h6>
+                                            <p>Wpisz stopę procentową składki na ubezpieczenie wypadkowe. W naszym
+                                                przypadku będzie to 1,67%.</p>
+
+                                            <h6 id="item-4-24" class="font-bold">W polu 24</h6>
+                                            <p>Wpisz stopę procentową składki na ubezpieczenie wypadkowe. W naszym
+                                                przypadku będzie to 1,67%.</p>
+
+                                            <h6 id="item-4-25" class="font-bold">W polu 25</h6>
+                                            <p>Wpisz stopę procentową składki na ubezpieczenie wypadkowe. W naszym
+                                                przypadku będzie to 1,67%.</p>
+
+                                            <h6 id="item-4-26" class="font-bold">W polu 26</h6>
+                                            <p>Wpisz stopę procentową składki na ubezpieczenie wypadkowe. W naszym
+                                                przypadku będzie to 1,67%.</p>
+
+                                            <h6 id="item-4-27" class="font-bold">W polu 27</h6>
+                                            <p>Wpisz stopę procentową składki na ubezpieczenie wypadkowe. W naszym
+                                                przypadku będzie to 1,67%.</p>
+
+                                            <h6 id="item-4-28" class="font-bold">W polu 28</h6>
+                                            <p>Wpisz stopę psdfzenie wypadkowe. W naszym przypadku będzie to 1,67%.</p>
+
+                                            <h6 id="item-4-29" class="font-bold">W polu 29</h6>
+                                            <p>Wpisz stopę procentową składki na ubezpieczenie wypadkowe. W naszym
+                                                przypadku będzie to 1,67%.</p>
+
+                                            <h6 id="item-4-30" class="font-bold">W polu 30</h6>
+                                            <p>Wpisz stopę procentową składki na ubezpieczenie wypadkowe. W naszym
+                                                przypadku będzie to 1,67%.</p>
+
+                                            <h6 id="item-4-31" class="font-bold">W polu 31</h6>
+                                            <p>Wpisz stopę procentową składki na ubezpieczenie wypadkowe. W naszym
+                                                przypadku będzie to 1,67%.</p>
+
+                                            <h6 id="item-4-32" class="font-bold">W polu 32</h6>
+                                            <p>Wpisz stopę procentową składki na ubezpieczenie wypadkowe. W naszym
+                                                przypadku będzie to 1,67%.</p>
+
+                                            <h6 id="item-4-33" class="font-bold">W polu 33</h6>
+                                            <p>Wpisz stopę procentową składki na ubezpieczenie wypadkowe. W naszym
+                                                przypadku będzie to 1,67%.</p>
+
+                                            <h6 id="item-4-34" class="font-bold">W polu 34</h6>
+                                            <p>Wpisz stopę procentową składki na ubezpieczenie wypadkowe. W naszym
+                                                przypadku będzie to 1,67%.</p>
+
+                                            <h6 id="item-4-35" class="font-bold">W polu 35</h6>
+                                            <p>Wpisz stopę procentową składki na ubezpieczenie wypadkowe. W naszym
+                                                przypadku będzie to 1,67%.</p>
+
+                                            <h6 id="item-4-36" class="font-bold">W polu 36</h6>
+                                            <p>Wpisz stopę procentową składki na ubezpieczenie wypadkowe. W naszym
+                                                przypadku będzie to 1,67%.</p>
+
+                                            <h6 id="item-4-37" class="font-bold">W polu 37</h6>
+                                            <p>Wpisz stopę procentową składki na ubezpieczenie wypadkowe. W naszym
+                                                przypadku będzie to 1,67%.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane  p-20" id="zus-rca" role="tabpanel">Coming soon</div>
+                        <div class="tab-pane p-20" id="zus-rza" role="tabpanel">Coming soon</div>
+                        <div class="tab-pane p-20" id="zus-rsa" role="tabpanel">Coming soon</div>
+                        <div class="tab-pane p-20" id="zus-rpa" role="tabpanel">Coming soon</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+{% block customjs %}
+    <script>
+        var lastId,
+            topMenu = $("#top-menu"),
+            topMenuHeight = topMenu.outerHeight() + 15,
+            // All list items
+            menuItems = topMenu.find("a"),
+            // Anchors corresponding to menu items
+            scrollItems = menuItems.map(function () {
+                var item = $($(this).attr("href"));
+                if (item.length) {
+                    return item;
+                }
+            });
+
+        // Bind click handler to menu items
+        // so we can get a fancy scroll animation
+        menuItems.click(function (e) {
+            var href = $(this).attr("href"),
+                offsetTop = href === "#" ? 0 : $(href).offset().top - topMenuHeight + 1;
+            $('html, body').stop().animate({
+                scrollTop: offsetTop
+            }, 300);
+            e.preventDefault();
+        });
+
+        // Bind to scroll
+        $(window).scroll(function () {
+            // Get container scroll position
+            var fromTop = $(this).scrollTop() + topMenuHeight;
+
+            // Get id of current scroll item
+            var cur = scrollItems.map(function () {
+                if ($(this).offset().top < fromTop)
+                    return this;
+            });
+            // Get the id of the current element
+            cur = cur[cur.length - 1];
+            var id = cur && cur.length ? cur[0].id : "";
+
+            if (lastId !== id) {
+                lastId = id;
+                // Set/remove active class
+                menuItems
+                    .parent().removeClass("active")
+                    .end().filter("[href='#" + id + "']").parent().addClass("active");
+            }
+        });
+    </script>
+{% endblock %}

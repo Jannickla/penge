@@ -1,0 +1,241 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <title>{% block title %}{% endblock title %} | Penge</title>
+
+    <script src="{% static 'dashboard/node_modules/jquery/jquery-3.2.1.min.js' %}"></script>
+    <link href="{% static 'dashboard/css/style.min.css' %}" rel="stylesheet">
+    {% block customcss %}
+    {% endblock %}
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="skin-default-dark fixed-layout">
+<div class="preloader">
+    <div class="loader">
+        <div class="loader__figure"></div>
+        <p class="loader__label">Penge</p>
+    </div>
+</div>
+
+<div id="main-wrapper">
+    {% include "dashboard/inc/header.html" %}
+    {% include "dashboard/inc/left-sidebar.html" %}
+    <div class="page-wrapper">
+
+        <div class="container-fluid">
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h4 class="text-themecolor"></h4>
+                </div>
+                <div class="col-md-7 align-self-center text-right">
+                    <div class="d-flex justify-content-end align-items-center">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                        <div class="btn-group pl-2" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="ti-plus"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                <a class="dropdown-item" href="{% url 'dashboard:new-invoice' %}">
+                                    <i class="ti-plus"></i> {% trans 'Invoice' %}
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="ti-plus"></i> {% trans 'Expenses' %}
+                                </a>
+                                <a class="dropdown-item" href="{% url 'dashboard:new-client' %}">
+                                    <i class="ti-plus"></i> {% trans 'Client' %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        {% block content %}{% endblock %}
+    </div>
+    {% include "dashboard/inc/right-sidebar.html" %}
+    <footer class="footer">
+        © 2020 Penge
+    </footer>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h3 class="text-{{ message.tags }}">{{ message.tags }}</h3> {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div id="feedback">
+        <a href="#" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#feedbackmodal">
+            <p>{% trans 'Feedback' %}</p>
+        </a>
+    </div>
+    <div id="feedbackmodal" class="feedbackmodal modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="center">{% trans 'Help us make Penge better' %}</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="feedbackForm" method="post" action="." data-url="{% url 'feedback:feedback' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">{% trans 'Subject' %}:</label>
+                            {{ feedback_form.subject }}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message-text" class="control-label">{% trans 'Feedback' %}:</label>
+                            {{ feedback_form.feedback_description }}
+                        </div>
+                        <div class="feedback-picker" dir="ltr">
+                            <div class="feedback-prompt">{% trans 'How is your overall experience?' %}</div>
+                            <button class="feedback" data-feedback-text="angry" tabindex="0"
+                                    aria-label="Angry Feedback" type="button" name="button" value="1">
+                                <span data-emoji="angry" title="Angry">😠</span>
+                            </button>
+                            <button class="feedback" data-feedback-text="disappointed" tabindex="0"
+                                    aria-label="Disappointed Feedback" type="button" name="button" value="2">
+                                <span data-emoji="disappointed" title="Disappointed">😞</span>
+                            </button>
+                            <button class="feedback" data-feedback-text="neutral_face" tabindex="0"
+                                    aria-label="Neutral face Feedback" type="button" name="button" value="3">
+                                <span data-emoji="neutral_face" title="Neutral face">😐</span>
+                            </button>
+                            <button class="feedback" data-feedback-text="smiley" tabindex="0"
+                                    aria-label="Smiley Feedback" type="button" name="button" value="4">
+                                <span data-emoji="smiley" title="Smiley">😃</span>
+                            </button>
+                            <button class="feedback" data-feedback-text="star_smiley" tabindex="0"
+                                    aria-label="Star Smiley Feedback" type="button" name="button" value="5">
+                                <span data-emoji="star_smiley" title="Star Smiley">🤩</span>
+                            </button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">
+                                {% trans 'Close' %}
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                {% trans 'Send Feedback' %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="{% static 'dashboard/node_modules/popper/popper.min.js' %}"></script>
+<script src="{% static 'dashboard/node_modules/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'dashboard/js/perfect-scrollbar.jquery.min.js' %}"></script>
+<script src="{% static 'dashboard/js/waves.js' %}"></script>
+<script src="{% static 'dashboard/js/sidebarmenu.js' %}"></script>
+<script src="{% static 'dashboard/js/custom.min.js' %}"></script>
+<script>
+        $(document).ready(function () {
+            // Timeout for POST Messages
+            setTimeout(function () {
+                $('.alert').fadeOut('slow');
+            }, 5000);
+
+            // AJAX XSS Protection
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    let cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        let cookie = jQuery.trim(cookies[i]);
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+
+            let csrftoken = getCookie('csrftoken');
+
+            function csrfSafeMethod(method) {
+                // these HTTP methods do not require CSRF protection
+                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+            }
+
+            $.ajaxSetup({
+                beforeSend: function (xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            });
+
+            //FeedbackForm Ajax
+            $('#feedbackForm')
+            let $myForm = $('#feedbackForm')
+            $myForm.submit(function (event) {
+                console.log("FormSubmit");
+                event.preventDefault()
+                let $formData = $(this).serialize()
+                let $thisURL = $myForm.data('url') || window.location.href // or set your own url
+                $.ajax({
+                    method: "POST",
+                    url: $thisURL,
+                    data: $formData,
+                    success: handleFormSuccess,
+                    error: handleFormError,
+                })
+            })
+
+            function handleFormSuccess(data, textStatus, jqXHR) {
+                console.log(data)
+                console.log(textStatus)
+                console.log(jqXHR)
+                $myForm[0].reset(); // reset form data
+            }
+
+            function handleFormError(jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR)
+                console.log(textStatus)
+                console.log(errorThrown)
+            }
+        });
+
+
+        $(document).ready(function () {
+
+        });
+    </script>
+{% block customjs %}
+
+{% endblock %}
+</body>
+
+</html>

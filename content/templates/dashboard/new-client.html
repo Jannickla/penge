@@ -1,0 +1,141 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load i18n %}
+{% block customcss %}{% endblock %}
+{% block title %}{% trans 'Create A New Client' %}{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <!-- Column -->
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">{% trans 'Add A New Client' %}</h3>
+                        <h6 class="card-subtitle">{% trans 'Provide information about your client - This will make it easier to manage and invoice your clients.' %}</h6>
+                        <form enctype="multipart/form-data" class="floating-labels m-t-40" action="." method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-3 pl-5 text-center mt-3">
+                                    <div href="#" class="d-inline">
+                                        <img class="clientProfileImage" src="{{ form.co_logo.url }}"
+                                             style="margin: 0 auto; display: block;" alt=""/>
+                                        {{ form.co_logo }}
+                                        <button type="button" class="btn btn-secondary mt-3 cTarget"><i
+                                                class="ti-cloud-up d-block"></i>{% trans 'Add Logo' %}
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mt-3">
+                                    <div class="form-group">
+                                        <label>{% trans 'NIP Number' %}</label>
+                                        <div class="input-group">
+                                            {{ form.co_nip_number }}
+                                            <div class="input-group-append">
+                                                <button class="btn btn-info" type="button">
+                                                    <i class="ti-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <small id="emailHelp" class="form-text text-muted">{% trans 'Click the search icon to gather information from the NIP Number provided.' %}</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{% trans 'Company Name' %}</label>
+                                        {{ form.co_name }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{% trans 'Address' %}</label>
+                                        {{ form.co_address }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{% trans 'ZIP Code' %}</label>
+                                        {{ form.co_zip }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{% trans 'City' %}</label>
+                                        {{ form.co_city }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{% trans 'Country' %}</label>
+                                        {{ form.co_country }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{% trans 'Telephone' %}</label>
+                                        {{ form.co_telephone }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{% trans 'Email' %}</label>
+                                        {{ form.co_email }}
+                                    </div>
+                                    <div class="form-group m-b-40">
+                                        <button class="btn btn-primary float-right" type="submit">{% trans 'Create Client' %}</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-6"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block customjs %}
+    <script src="{% static 'dashboard/js/pages/jasny-bootstrap.js' %}"></script>
+    <script>
+        // Read the chosen image file before upload
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('.clientProfileImage').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+
+        // Trigger readURL()
+        $(".cEvent").change(function () {
+            readURL(this);
+        });
+
+        // Add max-height or max-width depending on image being vertical or horizontal
+        $('img.clientProfileImage').each(function () {
+            if ($(this).width() > $(this).height()) {
+                $("img.clientProfileImage").css("max-width", "130px");
+            } else {
+                $("img.clientProfileImage").css("max-height", "130px");
+            }
+        });
+
+        // Triggers the upload button for company logo
+        $(".cTarget").click(function () {
+            $(".cEvent").click();
+            return false;
+        });
+
+        // Add BS class to CountryList
+        $("select").addClass("form-control");
+
+        // Delete client AJAX
+        let clientDelete = {
+            delete_comment: function (cid) {
+                clientDelete.cid = cid;
+                let resp = YAHOO.util.Connect.asyncRequest(
+                    "POST", "/admin/comments/freecomment/" + cid + "/delete/",
+                    cdel.ajaxCallback, 'post=yes'
+                );
+            },
+            ajaxCallback: {
+                success: function (o) {
+                    el = document.getElementById('c' + cdel.cid)
+                    el.parentNode.removeChild(el);
+                },
+                failure: function (o) {
+                    alert('error' + o);
+                }
+            }
+        }
+    </script>
+{% endblock %}

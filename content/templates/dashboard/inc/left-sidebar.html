@@ -1,0 +1,59 @@
+{% load static %}
+<aside class="left-sidebar">
+    <div class="scroll-sidebar">
+        <div class="user-profile">
+            <div class="user-pro-body">
+                <div><img src="{% static "dashboard/images/users/2.jpg" %}" alt="user-img" class="img-circle"></div>
+                <div class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle u-dropdown link hide-menu" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Woprun ApS <span class="caret"></span></a>
+                    <div class="dropdown-menu animated flipInY">
+                        <a href="javascript:void(0)" class="dropdown-item">
+                            <i class="ti-user"></i> My Profile
+                        </a>
+                        <a href="javascript:void(0)" class="dropdown-item">
+                            <i class="ti-wallet"></i> My Balance
+                        </a>
+                        <a href="javascript:void(0)" class="dropdown-item">
+                            <i class="ti-email"></i> Inbox
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javascript:void(0)" class="dropdown-item">
+                            <i class="ti-settings"></i> Account Setting
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="{% url 'accounts:logout' %}" class="dropdown-item">
+                            <i class="fas fa-power-off"></i> Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+                <li class="nav-small-cap">--- MENU</li>
+                <li>
+                    <a href="{% url 'dashboard:dashboard' %}" aria-expanded="false">
+                        <i class="icon-speedometer"></i>
+                        <span class="hide-menu">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+                        <i class="ti-user"></i>
+                        <span class="hide-menu">Clients</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="{% url 'dashboard:clients' %}">Clients</a></li>
+                        <li><a href="{% url 'dashboard:new-client' %}">New Client</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'dashboard:zus' %}" aria-expanded="false">
+                        <i class="ti-menu-alt"></i>
+                        <span class="hide-menu">Settle ZUS</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>

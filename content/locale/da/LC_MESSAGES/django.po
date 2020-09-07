@@ -1,0 +1,75 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-08-15 11:57+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/dashboard/profile.html:229
+msgid "First Name"
+msgstr "Fornavn"
+
+#: templates/dashboard/profile.html:235
+msgid "Last Name"
+msgstr "Efternavn"
+
+#: templates/dashboard/profile.html:241
+msgid "Email"
+msgstr "Email"
+
+#: templates/dashboard/profile.html:247
+msgid "NIP Number"
+msgstr "NIP Nummer"
+
+#: templates/dashboard/profile.html:253
+msgid "Logo"
+msgstr "Logo"
+
+#: templates/dashboard/profile.html:259
+msgid "Slogan"
+msgstr "Slogan"
+
+#: templates/dashboard/profile.html:265
+msgid "Company Name"
+msgstr "Firmanavn"
+
+#: templates/dashboard/profile.html:271
+msgid "Company Address"
+msgstr "Firma Adresse"
+
+#: templates/dashboard/profile.html:277
+msgid "Zip Code"
+msgstr "Postnummer"
+
+#: templates/dashboard/profile.html:283
+msgid "City"
+msgstr "By"
+
+#: templates/dashboard/profile.html:289
+msgid "Language"
+msgstr "Sprog"
+
+#: templates/dashboard/test.html:12 templates/dashboard/test.html:92
+msgid "Sell product"
+msgstr ""
+
+#: templates/dashboard/test.html:31 templates/dashboard/test.html:111
+msgid "Add Image"
+msgstr ""
+
+#: templates/dashboard/test.html:34 templates/dashboard/test.html:114
+msgid "Sell"
+msgstr ""

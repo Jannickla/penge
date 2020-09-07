@@ -1,0 +1,110 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}{% trans 'Client Overview' %}{% endblock %}
+{% block customcss %}
+    <style>
+        #clientBtnDrop {
+            display: block;
+            position: absolute;
+            right: 0;
+            z-index: 999;
+            border: none;
+            background: #353c48;
+        }
+
+        #clientBtnDrop:focus,
+        .delete-client:focus {
+            border: none;
+            outline: none;
+            box-shadow: none;
+        }
+
+        .delete-client:hover {
+            color: red;
+        }
+
+        .delete-client {
+            color: red;
+            border: none;
+        }
+        .nothingHere i:before {
+            font-size: 20vw;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% for client in object_list %}
+                <div id="client-{{ client.pk }}" class="col-md-6 col-lg-6 col-xlg-4">
+                    <div class="card card-body">
+                        <div class="btn-group clientSettings" role="group">
+                            <button id="clientBtnDrop" type="button" class="btn btn-secondary"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="ti-more-alt"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="clientBtnDrop">
+                                <a class="dropdown-item" href="{% url 'dashboard:edit-client' client.pk %}">
+                                    <i class="ti-pencil"></i> {% trans 'Edit' %}
+                                </a>
+                                <form method="POST" action="{% url 'dashboard:delete-client' client.pk %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="dropdown-item delete-client">
+                                        <i class="ti-minus"></i> {% trans 'Delete' %}
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-md-4 col-lg-3 text-center">
+                                <a href="#">
+                                    <img src="{{ client.co_logo.url }}" alt="user"
+                                         class="clientProfileImage img-circle img-fluid">
+                                </a>
+                            </div>
+                            <div class="col-md-8 col-lg-9">
+                                <h3 class="box-title m-b-0">
+                                    <a href="{% url 'dashboard:client' client.pk %}">{{ client.co_name }}</a>
+                                </h3>
+                                <small>{% trans 'NIP:' %} {{ client.co_nip_number }}</small>
+                                <address>
+                                    {{ client.co_address }}, {{ client.co_zip }}, {{ client.co_city }}
+                                    <br/>
+                                    <br/>
+                                    <p title="Phone">
+                                        <i class="ti-mobile"></i> {{ client.co_telephone }}
+                                    </p>
+                                    <p title="Email">
+                                        <i class="ti-email"></i> {{ client.co_email }}
+                                    </p>
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-md-12 text-center nothingHere">
+                    <h2 class="">{% trans 'Snap, no clients was found' %}</h2>
+                    <h5 class="">{% trans 'Clients make it easy to put invoicing on auto pilot, and send a invoice in less than a minute!' %}</h5>
+                    <i class="ti-face-sad mt-5 mb-5 d-block"></i>
+                    <a href="{% url 'dashboard:new-client' %}" class="btn btn-primary">{% trans 'Make your first client now' %}</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+{% block customjs %}
+    <script>
+        $(document).ready(function () {
+            // Add max-height or max-width depending on image being vertical or horizontal
+            $('img.clientProfileImage').each(function () {
+                if ($(this).width() > $(this).height()) {
+                    $("img.clientProfileImage").css("max-width", "130px");
+                } else {
+                    $("img.clientProfileImage").css("max-height", "130px");
+                }
+            });
+        });
+    </script>
+{% endblock %}

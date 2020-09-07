@@ -1,0 +1,48 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load i18n %}
+{% block customcss %}{% endblock %}
+{% block title %}{% trans 'Sent Invoices' %}{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <!-- Column -->
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>{% trans 'Date' %}</th>
+                                    <th>{% trans 'Deadline' %}</th>
+                                    <th>{% trans 'Client' %}</th>
+                                    <th>{% trans 'Total' %}</th>
+                                    <th>{% trans 'Status' %}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for invoice in object_list %}
+                                <tr>
+                                    <td><a href="javascript:void(0)">#{{ invoice.invoice_id }}</a></td>
+                                    <td>{{ invoice.created_at|date:"d M. Y" }}</td>
+                                    <td><span class="text-muted"><i class="fa fa-clock-o"></i> {{ invoice.date_deadline|date:"d M. Y" }}</span></td>
+                                    <td>{{ invoice.client.co_name }}</td>
+                                    <td>{{ invoice.created_at|date:"D d M Y" }}</td>
+                                    <td>
+                                        <div class="label label-table label-success">Paid</div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block customjs %}
+{% endblock %}

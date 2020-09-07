@@ -1,0 +1,217 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}Create New Invoice{% endblock %}
+{% block customcss %}
+
+    <style>
+    .invoice-box {
+        max-width: 90%;
+        margin: auto;
+        padding: 30px;
+        border: 1px solid #eee;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        font-size: 16px;
+        line-height: 24px;
+        font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+        color: #555;
+        background: #ffffff;
+    }
+    .invoice-box table {
+        width: 100%;
+        line-height: inherit;
+        text-align: left;
+    }
+    .invoice-box table td {
+        padding: 5px;
+        vertical-align: top;
+    }
+    .invoice-box table tr td:nth-child(n + 2) {
+        text-align: right;
+    }
+    .invoice-box table tr.top table td {
+        padding-bottom: 20px;
+    }
+    .invoice-box table tr.top table td.title {
+        font-size: 45px;
+        line-height: 45px;
+        color: #333;
+    }
+    .invoice-box table tr.information table td {
+        padding-bottom: 40px;
+    }
+    .invoice-box table tr.heading td {
+        background: #eee;
+        border-bottom: 1px solid #ddd;
+        font-weight: bold;
+    }
+    .invoice-box table tr.details td {
+        padding-bottom: 20px;
+    }
+    .invoice-box table tr.item td {
+        border-bottom: 1px solid #eee;
+    }
+    .invoice-box table tr.item.last td {
+        border-bottom: none;
+    }
+    .invoice-box table tr.item input {
+        padding-left: 5px;
+    }
+    .invoice-box table tr.item td:first-child input {
+        margin-left: -5px;
+        width: 100%;
+    }
+    .invoice-box table tr.total td:nth-child(2) {
+        border-top: 2px solid #eee;
+        font-weight: bold;
+    }
+    .invoice-box input[type="number"] {
+        width: 60px;
+    }
+    @media only screen and (max-width: 600px) {
+        .invoice-box table tr.top table td {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+        .invoice-box table tr.information table td {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+    }
+    </style>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form class="invoice-box" method="POST" action="." id="">
+                    {% csrf_token %}
+                    <table>
+                        <tr class="top">
+                            <td colspan="4">
+                                <table>
+                                    <tr>
+                                        <td class="title">
+                                            <img src="{{ invoice.user.co_logo.url }}" style="width:100%; max-width:300px;" alt="">
+                                        </td>
+                                        <td>{% trans 'Invoice #' %}: 123<br> {% trans 'Created' %}: {% now "d F Y" %}<br> {% trans 'Deadline' %}: {{ invoice.date_deadline }}</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr class="information">
+                            <td colspan="4">
+                                <table>
+                                    <tr>
+                                        {% if user.is_authenticated %}
+                                        <td>{{ user.co_name }}<br>
+                                            {{ user.co_address }}<br>
+                                            {{ user.co_zip }}, {{ user.co_city }}</td>
+                                        <td>
+                                            <p>{% trans 'Choose Client' %}:</p>
+                                            {{ invoice_form.client }}
+                                        </td>
+                                        <td>
+                                            <p>{% trans 'Choose Deadline' %}:</p>
+                                            {{ invoice_form.date_deadline }}
+                                        </td>
+                                        <td class="editable" data-id="{{ inv }}" data-type="id">
+                                            <p>{% trans 'Choose Place of Issue' %}:</p>
+                                            {{ invoice_form.place }}
+                                        </td>
+                                        <td>
+                                            <p>{% trans 'Comment' %}:</p>
+                                            {{ invoice_form.custom_comment }}
+                                        </td>
+                                        {% endif %}
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr class="heading">
+                            <td colspan="3">{% trans 'Payment Method' %}</td>
+                            <td>Check #</td>
+                        </tr>
+                        <tr class="details">
+                            <td colspan="3">Check</td>
+                            <td>1000</td>
+                        </tr>
+                        <tr class="heading">
+                            <td>{% trans 'Service' %}</td>
+                            <td>{% trans 'Unit' %}</td>
+                            <td>{% trans 'Quantity' %}</td>
+                            <td>{% trans 'Price' %}</td>
+                            <td>{% trans 'VAT Rate' %}</td>
+                            <td>{% trans 'Total' %}</td>
+                        </tr>
+                        {{ formset.management_form }}
+                        {% for forms in formset %}
+                        <tr class="item">
+                            <td>
+                                {{ forms.service }}
+                            </td>
+                            <td>
+                                {{ forms.unit }}
+                            </td>
+                            <td>
+                                {{ forms.quantity }}
+                            </td>
+                            <td>
+                                {{ forms.unit_price }}
+                            </td>
+                            <td>
+                                {{ forms.vat_rule }}
+                            </td>
+                            <td>
+                            </td>
+                            {% if formset.can_delete %}
+                                <td>{{forms.DELETE}}</td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                        <tr class="total">
+                            <td colspan="3"></td>
+                            <td>{% trans 'Total' %}: $385.00</td>
+                        </tr>
+                    </table>
+                <button type="submit" form="if">{% trans 'Send Invoice' %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block customjs %}
+    <script src="{% static 'dashboard/js/jquery.formset.js' %}"></script>
+    <script>
+        function calculateTotals() {
+          const subtotals = $('.item').map((idx, val) => calculateSubtotal(val)).get();
+          const total = subtotals.reduce((a, v) => a + Number(v), 0);
+          $('.total td:eq(1)').text(formatAsCurrency(total));
+        }
+
+        function calculateSubtotal(row) {
+          const $row = $(row);
+          const inputs = $row.find('input');
+          const subtotal = inputs[1].value * inputs[2].value;
+
+          $row.find('td:last').text(formatAsCurrency(subtotal));
+
+          return subtotal;
+        }
+
+        function formatAsCurrency(amount) {
+          return `$${Number(amount).toFixed(2)}`;
+        }
+
+        $(function() {
+            $('.item').formset({
+                prefix: '{{ formset.prefix }}'
+            });
+        })
+
+    </script>
+{% endblock %}
