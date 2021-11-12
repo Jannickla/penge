@@ -7,3 +7,5 @@ Der er tre grunde til jeg lavede dette system:
 3. Lære en masse om python samt django, naturligvis! 
 
 Dette projekt er ikke færdiggjort, og jeg har ikke udarbejdet en super forståelig todo, da der skal undersøges ting på min todo. 
+
+På trods af, at det altid ikke er ok at have koder direkte i settings.py, så er det tilfældet her, da denne repo kun lige er public til at fremvise, og vil blive privat igen senere
